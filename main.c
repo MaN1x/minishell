@@ -6,7 +6,7 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/06 03:23:24 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		main(int argc, char **argv, char **envp)
 	}
 
 	free(command.args);
-	free(command.name);
+
 
 /*
 	while(*envp)
