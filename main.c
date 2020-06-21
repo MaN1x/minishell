@@ -6,7 +6,7 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/21 03:24:02 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,8 @@ int		main(int argc, char **argv, char **env)
 	ft_putstr("$>");
 	line = read_line();
 	command = parse(line);
+	run(command, &envp);
 
-	ft_putchar('\n');
-	ft_putchar('\n');
 
 	i = 0;
 	while (command.args[i])
@@ -89,7 +88,6 @@ int		main(int argc, char **argv, char **env)
 		free(command.args[i]);
 		i++;
 	}
-
 	free(command.args);
 
 	i = 0;

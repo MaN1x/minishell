@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 19:23:01 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/17 20:30:49 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ typedef struct		s_command
 }					t_command;
 
 t_command			parse(char *line);
+void 				run(t_command command, char ***envp);
 
 #endif
