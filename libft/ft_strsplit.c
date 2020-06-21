@@ -6,12 +6,13 @@
 /*   By: mjoss <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 15:20:00 by mjoss             #+#    #+#             */
-/*   Updated: 2019/09/18 22:55:08 by mjoss            ###   ########.fr       */
+/*   Updated: 2020/06/21 03:33:54 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
+#include "libft.h"
 
 static size_t	wordcnt(char const *s, char c)
 {
@@ -37,14 +38,9 @@ static char		*word(char const *s, char c)
 	len = 0;
 	while (s[len] != c && s[len] != '\0')
 		len++;
-	if (!(word = (char*)malloc((len * sizeof(char) + 1))))
+	if (!(word = ft_strnew(len)))
 		return (NULL);
-	word[len] = '\0';
-	while (len)
-	{
-		word[len - 1] = s[len - 1];
-		len--;
-	}
+	ft_strncpy(word, s, len);
 	return (word);
 }
 
@@ -73,12 +69,12 @@ char			**ft_strsplit(char const *s, char c)
 	while (*s)
 		if (*s != c)
 		{
-			if (!word(s, c))
+			if (!(st[i] = word(s, c)))
 			{
 				ft_free(&st, i);
 				return (NULL);
 			}
-			st[i++] = word(s, c);
+			i++;
 			while (*s != c && *s != '\0')
 				s++;
 		}
