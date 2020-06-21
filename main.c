@@ -47,13 +47,35 @@ char	*read_line(void)
 		ft_putstr("rd err\n");
 }
 
-int		main(int argc, char **argv, char **envp)
+
+static char **init_env(char **env)
+{
+	int		len;
+	char	**envp;
+
+	len = 0;
+	while (env[len])
+		len++;
+	envp = (char**)malloc((len + 1) * sizeof(char*));
+	len = 0;
+	while (env[len])
+	{
+		envp[len] = ft_strdup(env[len]);
+		len++;
+	}
+	envp[len] = 0;
+	return (envp);
+}
+
+int		main(int argc, char **argv, char **env)
 {
 	int			i;
 	char		*line;
+	char 		**envp;
 	t_command	command;
 
 	i = 0;
+	envp = init_env(env);
 	ft_putstr("$>");
 	line = read_line();
 	command = parse(line);
@@ -70,15 +92,13 @@ int		main(int argc, char **argv, char **envp)
 
 	free(command.args);
 
-
-/*
-	while(*envp)
-    {
-	    ft_putstr(*envp);
-	    ft_putchar('\n');
-	    *envp++;
-    }
-*/
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
 
 	free(line);
 	return 0;
