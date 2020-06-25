@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:48:00 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/21 03:27:37 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/25 00:54:01 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,6 @@
 #include <unistd.h>
 #include "minishell.h"
 #include "libft/libft.h"
-
-static void ft_setenv(t_command command, char ***envp)
-{
-
-}
-
-static void env(char **envp)
-{
-	while (*envp)
-		ft_putendl(*envp++);
-}
-
-static void	run_builtin(t_command command, char ***envp)
-{
-	if (ft_strequ(command.args[0], "setenv"))
-		ft_setenv(command, envp);
-	if (ft_strequ(command.args[0], "env"))
-		env(*envp);
-}
 
 static char *join_path(char *path, char *name)
 {
@@ -75,7 +56,7 @@ static char *find_in_PATH(t_command command, char **envp)
 
 	i = 0;
 	current_dir = 0;
-	while (!ft_strnstr(*envp, "PATH", 4) && *envp)
+	while (*envp && ft_strncmp(*envp, "PATH", 4))
 		envp++;
 	if (*envp == NULL)
 		return (0);
@@ -96,18 +77,21 @@ static void run_bin(t_command command, char **envp)
 	char	*bin_file;
 
 	if ((bin_file = find_in_PATH(command, envp)))
+		;
+	else if (!(bin_file = check_dir("./", command.args[0])))
 	{
-		free(command.args[0]);
-		command.args[0] = bin_file;
+		print_err(command, "No such file or directory");
+		return;
 	}
+	free(command.args[0]);
+	command.args[0] = bin_file;
 	if ((pid = fork()) < 0)
 		ft_putstr("ошибка fork\n");
 	else if (pid == 0)
 		if (execve(command.args[0], command.args, envp) < 0)
 			ft_putstr("ошибка execve\n");
-	if ((pid = waitpid(pid,0,0)) < 0)
+	if ((pid = wait(0)) < 0)
 		ft_putstr("ошибка waitpid\n");
-	ft_putstr("parent process\n");
 }
 
 void		run(t_command command, char ***envp)

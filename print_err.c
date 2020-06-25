@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mineshell.h                                        :+:      :+:    :+:   */
+/*   print_err.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/16 19:23:01 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
+/*   Created: 2020/06/24 23:12:56 by maxim             #+#    #+#             */
+/*   Updated: 2020/06/24 23:12:56 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
+#include "libft/libft.h"
 
-typedef struct		s_command
+void print_err(t_command command, char *err)
 {
-	unsigned char	builtin;
-	char 			**args;
-}					t_command;
-
-t_command			parse(char *line);
-void 				run(t_command command, char ***envp);
-void				run_builtin(t_command command, char ***envp);
-void 				print_err(t_command command, char *err);
-
-#endif
+	ft_putstr(command.args[0]);
+	ft_putstr(": ");
+	ft_putstr(command.args[1]);
+	ft_putstr(": ");
+	ft_putendl(err);
+}

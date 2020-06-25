@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mineshell.h                                        :+:      :+:    :+:   */
+/*   ft_massdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/16 19:23:01 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
+/*   Created: 2020/06/21 17:15:46 by maxim             #+#    #+#             */
+/*   Updated: 2020/06/21 17:17:41 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <stdlib.h>
+#include "libft.h"
 
-typedef struct		s_command
+char	**ft_massdup(char **mass)
 {
-	unsigned char	builtin;
-	char 			**args;
-}					t_command;
+	int		len;
+	char	**new_mass;
 
-t_command			parse(char *line);
-void 				run(t_command command, char ***envp);
-void				run_builtin(t_command command, char ***envp);
-void 				print_err(t_command command, char *err);
-
-#endif
+	len = 0;
+	while (mass[len])
+		len++;
+	new_mass = (char**)malloc((len + 1) * sizeof(char*));
+	len = 0;
+	while (mass[len])
+	{
+		new_mass[len] = ft_strdup(mass[len]);
+		len++;
+	}
+	new_mass[len] = 0;
+	return (new_mass);
+}

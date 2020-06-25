@@ -67,10 +67,14 @@ set(SOURCE_LIBFT    ./libft/ft_memset.c
                     ./libft/ft_lstaddn.c
                     ./libft/ft_lstdelh.c
                     ./libft/ft_lstswap.c
-                    ./libft/ft_strinc.c libft/ft_isspace.c libft/ft_strdelspcs.c)
+                    ./libft/ft_strinc.c
+                    ./libft/ft_isspace.c
+                    ./libft/ft_strdelspcs.c
+                    ./libft/ft_massdup.c
+                    ./libft/ft_massdel.c)
 
 add_library(libft STATIC ${SOURCE_LIBFT})
 
-add_executable(minishell main.c parse.c run.c minishell.h)
+add_executable(minishell main.c parse.c run.c minishell.h run_builtin.c builtins/ft_setenv.c builtins/builtins.h builtins/env.c builtins/ft_unsetenv.c builtins/ft_cd.c print_err.c)
 
 target_link_libraries(minishell libft)

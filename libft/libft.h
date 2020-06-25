@@ -6,7 +6,7 @@
 /*   By: mjoss <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 18:26:51 by mjoss             #+#    #+#             */
-/*   Updated: 2020/05/19 03:12:07 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/21 17:17:41 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ void				ft_lstswap(t_list **head, t_list *lst1, t_list *lst2);
 char 				*ft_strinc(char **str);
 int 				ft_isspace(int c);
 char				*ft_strdelspcs(char *str);
+char				**ft_massdup(char **mass);
 
 #endif

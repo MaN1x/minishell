@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mineshell.h                                        :+:      :+:    :+:   */
+/*   run_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/16 19:23:01 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
+/*   Created: 2020/06/21 18:31:12 by maxim             #+#    #+#             */
+/*   Updated: 2020/06/21 18:46:57 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "builtins/builtins.h"
+#include "libft/libft.h"
+#include "minishell.h"
 
-typedef struct		s_command
+void	run_builtin(t_command command, char ***envp)
 {
-	unsigned char	builtin;
-	char 			**args;
-}					t_command;
-
-t_command			parse(char *line);
-void 				run(t_command command, char ***envp);
-void				run_builtin(t_command command, char ***envp);
-void 				print_err(t_command command, char *err);
-
-#endif
+	if (ft_strequ(command.args[0], "cd"))
+		ft_cd(command, envp);
+	if (ft_strequ(command.args[0], "unsetenv"))
+		ft_unsetenv(command, envp);
+	if (ft_strequ(command.args[0], "setenv"))
+		ft_setenv(command, envp);
+	if (ft_strequ(command.args[0], "env"))
+		env(*envp);
+}

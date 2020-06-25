@@ -6,7 +6,7 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/21 03:24:02 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/25 18:16:38 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,18 @@ char	*read_line(void)
 		ft_putstr("rd err\n");
 }
 
-
-static char **init_env(char **env)
+static void	free_all(t_command *command, char **line)
 {
-	int		len;
-	char	**envp;
+	int i;
 
-	len = 0;
-	while (env[len])
-		len++;
-	envp = (char**)malloc((len + 1) * sizeof(char*));
-	len = 0;
-	while (env[len])
+	i = 0;
+	while (command->args[i])
 	{
-		envp[len] = ft_strdup(env[len]);
-		len++;
+		free(command->args[i]);
+		i++;
 	}
-	envp[len] = 0;
-	return (envp);
+	free(command->args);
+	free(*line);
 }
 
 int		main(int argc, char **argv, char **env)
@@ -75,22 +69,16 @@ int		main(int argc, char **argv, char **env)
 	t_command	command;
 
 	i = 0;
-	envp = init_env(env);
-	ft_putstr("$>");
-	line = read_line();
-	command = parse(line);
-	run(command, &envp);
-
-
-	i = 0;
-	while (command.args[i])
+	envp = ft_massdup(env);
+	while (1)
 	{
-		free(command.args[i]);
-		i++;
+		ft_putstr("$>");
+		line = read_line();
+		command = parse(line);
+		run(command, &envp);
+		free_all(&command, &line);
 	}
-	free(command.args);
 
-	i = 0;
 	while (envp[i])
 	{
 		free(envp[i]);
@@ -98,6 +86,5 @@ int		main(int argc, char **argv, char **env)
 	}
 	free(envp);
 
-	free(line);
 	return 0;
 }
