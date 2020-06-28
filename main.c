@@ -6,17 +6,14 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/25 18:16:38 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/26 01:39:43 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft/libft.h"
 #include "minishell.h"
-# define BUF_SIZE 2
 
 char	*read_line(void)
 {
@@ -30,7 +27,7 @@ char	*read_line(void)
 		return (NULL);
 	while((rd = read(STDIN_FILENO, &buf, 1)) > 0)
 	{
-		if (buf == '\n' || buf == '\0' || buf == EOF)
+		if (buf == '\n' || buf == '\0')
 		{
 			line[ft_strlen(line)] = '\0';
 			return(line);
@@ -61,14 +58,24 @@ static void	free_all(t_command *command, char **line)
 	free(*line);
 }
 
+static void	free_env(char ***env)
+{
+	int		i;
+	char	**envp;
+
+	i = 0;
+	envp = *env;
+	while(envp[i])
+		free(envp[i++]);
+	free(envp);
+}
+
 int		main(int argc, char **argv, char **env)
 {
-	int			i;
 	char		*line;
 	char 		**envp;
 	t_command	command;
 
-	i = 0;
 	envp = ft_massdup(env);
 	while (1)
 	{
@@ -78,13 +85,6 @@ int		main(int argc, char **argv, char **env)
 		run(command, &envp);
 		free_all(&command, &line);
 	}
-
-	while (envp[i])
-	{
-		free(envp[i]);
-		i++;
-	}
-	free(envp);
-
-	return 0;
+	free_env(&envp);
+	return (0);
 }

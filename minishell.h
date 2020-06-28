@@ -6,12 +6,13 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 19:23:01 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/17 20:23:42 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/26 00:56:08 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define BUF_SIZE 10
 
 typedef struct		s_command
 {

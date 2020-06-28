@@ -75,6 +75,6 @@ set(SOURCE_LIBFT    ./libft/ft_memset.c
 
 add_library(libft STATIC ${SOURCE_LIBFT})
 
-add_executable(minishell main.c parse.c run.c minishell.h run_builtin.c builtins/ft_setenv.c builtins/builtins.h builtins/env.c builtins/ft_unsetenv.c builtins/ft_cd.c print_err.c)
+add_executable(minishell main.c parse.c run.c minishell.h run_builtin.c builtins/ft_setenv.c builtins/builtins.h builtins/env.c builtins/ft_unsetenv.c builtins/ft_cd.c print_err.c builtins/ft_exit.c builtins/ft_echo.c)
 
 target_link_libraries(minishell libft)

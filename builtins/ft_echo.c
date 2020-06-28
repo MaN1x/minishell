@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_err.c                                        :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/24 23:12:56 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/24 23:12:56 by maxim            ###   ########.fr       */
+/*   Created: 2020/06/25 22:00:30 by maxim             #+#    #+#             */
+/*   Updated: 2020/06/26 00:44:32 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "minishell.h"
-#include "libft/libft.h"
+#include "../minishell.h"
+#include "../libft/libft.h"
 
-int	syscall_err(void)
+void	ft_echo(t_command command)
 {
-	ft_putendl("syscall error");
-	exit(-1);
-}
+	int	i;
 
-void print_err(t_command command, char *err)
-{
-	ft_putstr(command.args[0]);
-	ft_putstr(": ");
-	ft_putstr(command.args[1]);
-	ft_putstr(": ");
-	ft_putendl(err);
+	i = 1;
+	while (command.args[i])
+		ft_putstr(command.args[i++]);
+	ft_putchar('\n');
 }

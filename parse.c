@@ -6,7 +6,7 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 19:19:24 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/03 00:08:20 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/28 00:34:41 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static int args_count(char *line)
 	{
 		while (ft_isspace(line[position]))
 			position++;
-		count++;
 		while (!ft_isspace(line[position]) && line[position])
 			position++;
+		if (!ft_isspace(line[position - 1]))
+			count++;
 	}
 	return (count);
 }
@@ -44,18 +45,21 @@ static void	parse_args(char *line, t_command *command)
 															* sizeof(char*));
 	while (line[position])
 	{
-		while (ft_isspace(line[position]) && line[position])
+		while (ft_isspace(line[position]))
 			position++;
 		while (!ft_isspace(line[position]) && line[position])
 		{
 			position++;
 			word_len++;
 		}
-		command->args[word_nbr] = ft_strnew(word_len);
-		ft_memcpy(command->args[word_nbr], &line[position - word_len],
-																word_len);
-		word_len = 0;
-		word_nbr++;
+		if (!ft_isspace(line[position - 1]))
+		{
+			command->args[word_nbr] = ft_strnew(word_len);
+			ft_memcpy(command->args[word_nbr], &line[position - word_len],
+					  word_len);
+			word_len = 0;
+			word_nbr++;
+		}
 	}
 }
 
@@ -72,7 +76,5 @@ t_command	parse(char *line)
 		ft_strequ(command.args[0], "env") ||
 		ft_strequ(command.args[0], "exit"))
 		command.builtin = 1;
-
-
 	return (command);
 }

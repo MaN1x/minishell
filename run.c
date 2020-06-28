@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:48:00 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/25 00:54:01 by maxim            ###   ########.fr       */
+/*   Updated: 2020/06/28 00:24:32 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void run_bin(t_command command, char **envp)
 	pid_t	pid;
 	char	*bin_file;
 
+	if (command.args[0] == 0)
+		return;
 	if ((bin_file = find_in_PATH(command, envp)))
 		;
 	else if (!(bin_file = check_dir("./", command.args[0])))
@@ -94,7 +96,7 @@ static void run_bin(t_command command, char **envp)
 		ft_putstr("ошибка waitpid\n");
 }
 
-void		run(t_command command, char ***envp)
+void			run(t_command command, char ***envp)
 {
 	if (command.builtin == 1)
 		run_builtin(command, envp);
