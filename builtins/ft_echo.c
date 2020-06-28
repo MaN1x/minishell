@@ -19,6 +19,9 @@ void	ft_echo(t_command command)
 
 	i = 1;
 	while (command.args[i])
+	{
 		ft_putstr(command.args[i++]);
+		ft_putchar(' ');
+	}
 	ft_putchar('\n');
 }
