@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 21:16:11 by maxim             #+#    #+#             */
-/*   Updated: 2020/07/04 21:01:54 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 15:47:43 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static char	*find_in_env(char *name, char **env)
 		{
 			while (env[i][j] != '=')
 				j++;
-			return &env[i][++j];
+			return (&env[i][++j]);
 		}
 		i++;
 	}
-	return NULL;
+	return (NULL);
 }
 
-void	parse_tilda(t_command *command, char **env)
+void		parse_tilda(t_command *command, char **env)
 {
 	int		i;
 	char	*home;
@@ -43,7 +43,8 @@ void	parse_tilda(t_command *command, char **env)
 	i = 0;
 	while (command->args[i])
 	{
-		if (command->args[i][0] == '~' && ((!command->args[i][1] || command->args[i][1] == '/')))
+		if (command->args[i][0] == '~' && ((!command->args[i][1] ||
+											command->args[i][1] == '/')))
 		{
 			if ((home = find_in_env("HOME", env)))
 			{

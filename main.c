@@ -6,7 +6,7 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/07/04 20:56:24 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 15:28:36 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@
 #include "libft/libft.h"
 #include "minishell.h"
 
-char	*read_line(void)
+char		*read_line(void)
 {
-	char 	*line;
+	char	*line;
 	char	buf;
-	int 	len_line;
-	int 	rd;
+	int		len_line;
+	int		rd;
 
 	len_line = BUF_SIZE;
 	if ((line = ft_strnew(BUF_SIZE)) == NULL)
 		return (NULL);
-	while((rd = read(STDIN_FILENO, &buf, 1)) > 0)
+	while ((rd = read(STDIN_FILENO, &buf, 1)) > 0)
 	{
 		if (buf == '\n' || buf == '\0')
 		{
 			line[ft_strlen(line)] = '\0';
-			return(line);
+			return (line);
 		}
 		else
 			ft_strncat(line, &buf, 1);
@@ -41,7 +41,7 @@ char	*read_line(void)
 			line = ft_strinc(&line);
 		}
 	}
-	if (rd < 0 )
+	if (rd < 0)
 		ft_putstr("rd err\n");
 }
 
@@ -66,15 +66,15 @@ static void	free_env(char ***env)
 
 	i = 0;
 	envp = *env;
-	while(envp[i])
+	while (envp[i])
 		free(envp[i++]);
 	free(envp);
 }
 
-int		main(int argc, char **argv, char **env)
+int			main(int argc, char **argv, char **env)
 {
 	char		*line;
-	char 		**envp;
+	char		**envp;
 	t_command	command;
 
 	envp = ft_massdup(env);

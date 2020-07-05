@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 20:58:55 by maxim             #+#    #+#             */
-/*   Updated: 2020/07/05 03:42:04 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 03:48:48 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*find_and_replace_ex(char *str, char **envp)
 	return (0);
 }
 
-void	parse_parameter_extension(t_command *command, char **envp)
+void		parse_parameter_extension(t_command *command, char **envp)
 {
 	int		i;
 	int		j;

@@ -6,14 +6,14 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 19:19:24 by mjoss             #+#    #+#             */
-/*   Updated: 2020/07/04 20:56:24 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 15:44:52 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "../libft/libft.h"
 
-static int args_count(char *line)
+static int	args_count(char *line)
 {
 	int count;
 	int	position;
@@ -41,8 +41,7 @@ static void	parse_args(char *line, t_command *command)
 	word_nbr = 0;
 	word_len = 0;
 	position = 0;
-	command->args = (char**)ft_memalloc(((unsigned long)args_count(line)+ 1)
-															* sizeof(char*));
+	command->args = (char**)ft_memalloc((args_count(line) + 1) * sizeof(char*));
 	while (line[position])
 	{
 		while (ft_isspace(line[position]))
@@ -55,10 +54,9 @@ static void	parse_args(char *line, t_command *command)
 		if (!ft_isspace(line[position - 1]))
 		{
 			command->args[word_nbr] = ft_strnew(word_len);
-			ft_memcpy(command->args[word_nbr], &line[position - word_len],
-					  word_len);
+			ft_memcpy(command->args[word_nbr++], &line[position - word_len],
+					word_len);
 			word_len = 0;
-			word_nbr++;
 		}
 	}
 }

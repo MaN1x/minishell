@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:48:00 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/28 00:24:32 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 15:32:16 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "minishell.h"
 #include "libft/libft.h"
 
-static char *join_path(char *path, char *name)
+static char	*join_path(char *path, char *name)
 {
 	char	*full_path;
 	char	*tmp;
@@ -33,7 +33,7 @@ static char *join_path(char *path, char *name)
 	return (full_path);
 }
 
-static char *check_dir(char *dir, char *name)
+static char	*check_dir(char *dir, char *name)
 {
 	char	*current_dir;
 
@@ -48,11 +48,11 @@ static char *check_dir(char *dir, char *name)
 	}
 }
 
-static char *find_in_PATH(t_command command, char **envp)
+static char	*find_in_path(t_command command, char **envp)
 {
 	char	*current_dir;
 	char	**dirs;
-	int 	i;
+	int		i;
 
 	i = 0;
 	current_dir = 0;
@@ -71,19 +71,19 @@ static char *find_in_PATH(t_command command, char **envp)
 	return (current_dir);
 }
 
-static void run_bin(t_command command, char **envp)
+static void	run_bin(t_command command, char **envp)
 {
 	pid_t	pid;
 	char	*bin_file;
 
 	if (command.args[0] == 0)
-		return;
-	if ((bin_file = find_in_PATH(command, envp)))
+		return ;
+	if ((bin_file = find_in_path(command, envp)))
 		;
 	else if (!(bin_file = check_dir("./", command.args[0])))
 	{
 		print_err(command, "No such file or directory");
-		return;
+		return ;
 	}
 	free(command.args[0]);
 	command.args[0] = bin_file;
@@ -96,7 +96,7 @@ static void run_bin(t_command command, char **envp)
 		ft_putstr("ошибка waitpid\n");
 }
 
-void			run(t_command command, char ***envp)
+void		run(t_command command, char ***envp)
 {
 	if (command.builtin == 1)
 		run_builtin(command, envp);

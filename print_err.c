@@ -14,13 +14,13 @@
 #include "minishell.h"
 #include "libft/libft.h"
 
-int	syscall_err(void)
+int		syscall_err(void)
 {
 	ft_putendl("syscall error");
 	exit(-1);
 }
 
-void print_err(t_command command, char *err)
+void	print_err(t_command command, char *err)
 {
 	ft_putstr(command.args[0]);
 	ft_putstr(": ");
