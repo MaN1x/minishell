@@ -69,9 +69,8 @@ set(SOURCE_LIBFT    ./libft/ft_memset.c
                     ./libft/ft_lstswap.c
                     ./libft/ft_strinc.c
                     ./libft/ft_isspace.c
-                    ./libft/ft_strdelspcs.c
-                    ./libft/ft_massdup.c
-                    ./libft/ft_massdel.c)
+        ./libft/ft_massdup.c
+        )
 
 add_library(libft STATIC ${SOURCE_LIBFT})
 
