@@ -6,12 +6,12 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 19:19:24 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/28 00:34:41 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/04 20:56:24 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libft/libft.h"
+#include "../minishell.h"
+#include "../libft/libft.h"
 
 static int args_count(char *line)
 {

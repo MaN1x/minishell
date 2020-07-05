@@ -6,10 +6,11 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/06/28 21:16:09 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/04 20:56:24 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse/parse.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft/libft.h"
@@ -83,6 +84,7 @@ int		main(int argc, char **argv, char **env)
 		line = read_line();
 		command = parse(line);
 		parse_tilda(&command, envp);
+		parse_parameter_extension(&command, envp);
 		run(command, &envp);
 		free_all(&command, &line);
 	}
