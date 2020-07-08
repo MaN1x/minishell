@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/25 22:00:30 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/26 00:44:32 by maxim            ###   ########.fr       */
+/*   Created: 2020/06/25 21:46:36 by maxim             #+#    #+#             */
+/*   Updated: 2020/07/05 19:27:14 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../libft/libft.h"
+#include <stdlib.h>
+#include "minishell.h"
+#include "libft.h"
 
-void	ft_echo(t_command command)
+void	ft_exit(t_command command)
 {
-	int	i;
+	int i;
+	int	ret;
 
-	i = 1;
-	while (command.args[i])
+	i = 0;
+	if (command.args[1] == 0)
+		exit(0);
+	while (command.args[1][i] && (ft_isdigit(command.args[1][i])))
+		i++;
+	if (command.args[1][i] == '\0')
 	{
-		ft_putstr(command.args[i++]);
-		ft_putchar(' ');
+		ret = ft_atoi(command.args[1]);
+		exit(ret);
 	}
-	ft_putchar('\n');
+	else
+		print_err(command, "Illegal number");
 }

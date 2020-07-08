@@ -6,14 +6,13 @@
 /*   By: mjoss <mjoss@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 21:38:27 by mjoss             #+#    #+#             */
-/*   Updated: 2020/07/05 15:28:36 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 19:29:57 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse/parse.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft/libft.h"
+#include "libft.h"
 #include "minishell.h"
 
 char		*read_line(void)
@@ -24,8 +23,7 @@ char		*read_line(void)
 	int		rd;
 
 	len_line = BUF_SIZE;
-	if ((line = ft_strnew(BUF_SIZE)) == NULL)
-		return (NULL);
+	line = ft_strnew(BUF_SIZE);
 	while ((rd = read(STDIN_FILENO, &buf, 1)) > 0)
 	{
 		if (buf == '\n' || buf == '\0')
@@ -35,7 +33,7 @@ char		*read_line(void)
 		}
 		else
 			ft_strncat(line, &buf, 1);
-		if (ft_strlen(line) == len_line)
+		if (ft_strlen(line) == (unsigned long)len_line)
 		{
 			len_line *= 2;
 			line = ft_strinc(&line);
@@ -43,6 +41,7 @@ char		*read_line(void)
 	}
 	if (rd < 0)
 		ft_putstr("rd err\n");
+	return (NULL);
 }
 
 static void	free_all(t_command *command, char **line)
@@ -77,6 +76,8 @@ int			main(int argc, char **argv, char **env)
 	char		**envp;
 	t_command	command;
 
+	(void)argc;
+	(void)argv;
 	envp = ft_massdup(env);
 	while (1)
 	{
@@ -85,7 +86,7 @@ int			main(int argc, char **argv, char **env)
 		command = parse(line);
 		parse_tilda(&command, envp);
 		parse_parameter_extension(&command, envp);
-		run(command, &envp);
+		run(&command, &envp);
 		free_all(&command, &line);
 	}
 	free_env(&envp);

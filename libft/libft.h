@@ -88,7 +88,6 @@ void				ft_lstdelh(t_list **lst, void(*del)(void*, size_t));
 void				ft_lstswap(t_list **head, t_list *lst1, t_list *lst2);
 char 				*ft_strinc(char **str);
 int 				ft_isspace(int c);
-char				*ft_strdelspcs(char *str);
 char				**ft_massdup(char **mass);
 
 #endif

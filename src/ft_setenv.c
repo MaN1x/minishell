@@ -6,15 +6,15 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:33:55 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/24 23:56:50 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 19:27:14 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "../libft/libft.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h>
 
-static void	free_envp(char ***envp)
+static void		free_envp(char ***envp)
 {
 	int		i;
 	char	**tmp;
@@ -26,7 +26,7 @@ static void	free_envp(char ***envp)
 	free(tmp);
 }
 
-static	char **env_extend(char **envp, char *new_var)
+static	char	**env_extend(char **envp, char *new_var)
 {
 	int		len;
 	char	**new_envp;
@@ -46,10 +46,10 @@ static	char **env_extend(char **envp, char *new_var)
 	return (new_envp);
 }
 
-void	ft_setenv(t_command command, char ***envp)
+void		ft_setenv(t_command command, char ***envp)
 {
 	int		i;
-	int 	len;
+	int		len;
 	char	**new_envp;
 
 	i = 0;
@@ -57,7 +57,7 @@ void	ft_setenv(t_command command, char ***envp)
 	while (command.args[1][len] != '=' && command.args[1][len])
 		len++;
 	if (command.args[1][len] != '=')
-		return;
+		return ;
 	while ((*envp)[i] && ft_strncmp((*envp)[i], command.args[1], len))
 		i++;
 	if ((*envp)[i])

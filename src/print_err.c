@@ -6,13 +6,13 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 23:12:56 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/24 23:12:56 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 17:27:15 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "minishell.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 int		syscall_err(void)
 {

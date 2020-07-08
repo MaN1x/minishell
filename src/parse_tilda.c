@@ -6,33 +6,13 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 21:16:11 by maxim             #+#    #+#             */
-/*   Updated: 2020/07/05 15:47:43 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 18:56:41 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "parse.h"
-#include "../libft/libft.h"
-
-static char	*find_in_env(char *name, char **env)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(name, env[i], ft_strlen(name)))
-		{
-			while (env[i][j] != '=')
-				j++;
-			return (&env[i][++j]);
-		}
-		i++;
-	}
-	return (NULL);
-}
+#include "minishell.h"
+#include "libft.h"
 
 void		parse_tilda(t_command *command, char **env)
 {

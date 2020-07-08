@@ -6,7 +6,7 @@
 #    By: mjoss <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/06 20:13:06 by mjoss             #+#    #+#              #
-#    Updated: 2019/12/04 17:38:09 by mjoss            ###   ########.fr        #
+#    Updated: 2020/07/05 18:47:40 by maxim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,10 @@ SRCS = ./ft_memset.c		\
 	   ./ft_lst_n.c			\
 	   ./ft_lstaddn.c		\
 	   ./ft_lstdelh.c       \
-	   ./ft_lstswap.c
+	   ./ft_lstswap.c		\
+	   ./ft_strinc.c		\
+	   ./ft_isspace.c		\
+	   ./ft_massdup.c
 
 OBJ = $(SRCS:.c=.o)
 

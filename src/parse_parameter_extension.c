@@ -6,13 +6,13 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 20:58:55 by maxim             #+#    #+#             */
-/*   Updated: 2020/07/05 03:48:48 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 17:34:11 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "parse.h"
-#include "../libft/libft.h"
+#include "minishell.h"
+#include "libft.h"
 
 static char	*replace_ex(char *command, char *envp, int start)
 {

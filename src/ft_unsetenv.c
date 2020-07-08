@@ -6,12 +6,12 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 18:43:39 by maxim             #+#    #+#             */
-/*   Updated: 2020/06/25 00:32:28 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 20:47:10 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "../libft/libft.h"
+#include "minishell.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static int	check_valid(char *arg)
@@ -24,19 +24,42 @@ static int	check_valid(char *arg)
 		return (1);
 }
 
-void 		ft_unsetenv(t_command command, char ***envp)
+static void	cpy_env(char ***new_en, int sep, char ***envp)
 {
-	int 	i;
-	int 	j;
-	int 	len;
+	int		j;
+	char	**new_env;
+
+	new_env = *new_en;
+	j = 0;
+	while (j != sep)
+	{
+		new_env[j] = ft_strdup((*envp)[j]);
+		free((*envp)[j]);
+		j++;
+	}
+	free((*envp)[sep++]);
+	while ((*envp)[sep])
+	{
+		new_env[j] = ft_strdup((*envp)[sep]);
+		free((*envp)[sep]);
+		sep++;
+		j++;
+	}
+	free(*envp);
+}
+
+void		ft_unsetenv(t_command command, char ***envp)
+{
+	int		i;
+	int		len;
 	char	**new_env;
 
 	i = 0;
-	j = 0;
 	len = 0;
 	if (check_valid(command.args[1]))
 	{
-		while ((*envp)[i] && ft_strncmp((*envp)[i], command.args[1], ft_strlen(command.args[1])))
+		while ((*envp)[i] && ft_strncmp((*envp)[i], command.args[1],
+												ft_strlen(command.args[1])))
 			i++;
 		if ((*envp)[i])
 		{
@@ -44,21 +67,7 @@ void 		ft_unsetenv(t_command command, char ***envp)
 				len++;
 			new_env = (char**)malloc(len * sizeof(char*));
 			new_env[len - 1] = 0;
-			while (j != i)
-			{
-				new_env[j] =  ft_strdup((*envp)[j]);
-				free((*envp)[j]);
-				j++;
-			}
-			free((*envp)[i++]);
-			while ((*envp)[i])
-			{
-				new_env[j] = ft_strdup((*envp)[i]);
-				free((*envp)[i]);
-				i++;
-				j++;
-			}
-			free(*envp);
+			cpy_env(&new_env, i, envp);
 			*envp = new_env;
 		}
 	}

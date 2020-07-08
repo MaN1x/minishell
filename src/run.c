@@ -6,7 +6,7 @@
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 17:48:00 by maxim             #+#    #+#             */
-/*   Updated: 2020/07/05 15:32:16 by maxim            ###   ########.fr       */
+/*   Updated: 2020/07/05 21:16:27 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "minishell.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 static char	*join_path(char *path, char *name)
 {
@@ -37,8 +37,13 @@ static char	*check_dir(char *dir, char *name)
 {
 	char	*current_dir;
 
-	if (!(current_dir = join_path(dir, name)))
-		ft_putstr("malloc error");
+	if (*name != '/')
+	{
+		if (!(current_dir = join_path(dir, name)))
+			ft_putstr("malloc error");
+	}
+	else
+		current_dir = ft_strdup(name);
 	if (access(current_dir, X_OK) == 0)
 		return (current_dir);
 	else
@@ -80,7 +85,7 @@ static void	run_bin(t_command command, char **envp)
 		return ;
 	if ((bin_file = find_in_path(command, envp)))
 		;
-	else if (!(bin_file = check_dir("./", command.args[0])))
+	else if (!(bin_file = check_dir(".", command.args[0])))
 	{
 		print_err(command, "No such file or directory");
 		return ;
@@ -96,10 +101,10 @@ static void	run_bin(t_command command, char **envp)
 		ft_putstr("ошибка waitpid\n");
 }
 
-void		run(t_command command, char ***envp)
+void		run(t_command *command, char ***envp)
 {
-	if (command.builtin == 1)
+	if (command->builtin == 1)
 		run_builtin(command, envp);
 	else
-		run_bin(command, *envp);
+		run_bin(*command, *envp);
 }

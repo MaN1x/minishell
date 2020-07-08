@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   find_in_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxim <maxim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/04 20:56:53 by maxim             #+#    #+#             */
-/*   Updated: 2020/07/05 01:02:32 by maxim            ###   ########.fr       */
+/*   Created: 2020/07/06 18:50:54 by maxim             #+#    #+#             */
+/*   Updated: 2020/07/06 18:50:54 by maxim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_PARSE_H
-# define MINISHELL_PARSE_H
-# include "../minishell.h"
+#include "minishell.h"
+#include "libft.h"
 
-t_command	parse(char *line);
-void		parse_tilda(t_command *command, char **env);
-void		parse_parameter_extension(t_command *command, char **envp);
+char	*find_in_env(char *name, char **env)
+{
+	int	i;
+	int	j;
 
-#endif
+	i = 0;
+	j = 0;
+	while (env[i])
+	{
+		if (!ft_strncmp(name, env[i], ft_strlen(name)))
+		{
+			while (env[i][j] != '=')
+				j++;
+			return (&env[i][++j]);
+		}
+		i++;
+	}
+	return (NULL);
+}
