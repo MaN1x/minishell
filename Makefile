@@ -6,16 +6,22 @@
 #    By: maxim <maxim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/05 16:05:40 by maxim             #+#    #+#              #
-#    Updated: 2020/07/08 04:10:03 by maxim            ###   ########.fr        #
+#    Updated: 2020/07/11 16:27:07 by maxim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC_PATH = src/
+FLAGS = -Wall -Wextra -Werror
+
 LIB_PATH = libft/
+INC_PATH = includes/
+SRC_PATH = src/
 OBJ_PATH = obj/
-INC_PATH = includes/ $(LIB_PATH)
+
+LIB_NAME = libft.a
+
+INC_FILES = minishell.h
 
 SRC_FILES = 		main.c \
             		parse.c \
@@ -31,32 +37,34 @@ SRC_FILES = 		main.c \
             		ft_unsetenv.c\
             		env.c\
             		find_in_env.c
-OBJ_FILES = $(SRC_FILES:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
-
-SRC = $(addprefix $(SRC_PATH), $(SRC_FILES))
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FILES))
-INC = $(addprefix -I, $(INC_PATH))
+SRCS = $(addprefix $(SRC_PATH), $(SRC_FILES))
+OBJS = $(addprefix $(OBJ_PATH), $(SRC_FILES:.c=.o))
+LIB = $(addprefix $(LIB_PATH), $(LIB_NAME))
+INC = $(addprefix $(INC_PATH), $(INC_FILES))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-		make -C $(LIB_PATH)
-		gcc $(FLAGS) $(OBJ)  $(INC) -L $(LIB_PATH) -lft -o $(NAME)
+$(NAME): $(LIB) $(OBJ_PATH) $(OBJS)
+	gcc $(FLAGS) -o $(NAME) $(OBJS) -L$(LIB_PATH) -lft
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-		mkdir -p $(OBJ_PATH)
-		gcc $(FLAGS)  $(INC) -c $< -o $@
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+
+$(LIB):
+	make -C $(LIB_PATH)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC)
+	gcc $(FLAGS) -I$(INC_PATH) -I$(LIB_PATH) -o $@ -c $<
 
 clean:
-		make -C $(LIB_PATH)/ clean
-		/bin/rm -rf $(OBJ_PATH)
+	rm -rf $(OBJ_PATH)
+	make -C $(LIB_PATH) clean
 
 fclean: clean
-		make -C $(LIB_PATH)/ fclean
-		/bin/rm -f $(NAME)
+	rm $(NAME)
+	make -C $(LIB_PATH) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re $(NAME)
+.PHONY: all fclean clean re
